@@ -6,7 +6,7 @@ import { render } from 'react-dom';
 import { App } from './components/app/app';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/',
+  uri: 'https://scratches.glitch.me/',
 });
 
 render(

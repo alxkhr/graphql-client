@@ -1,4 +1,4 @@
-schema: http://localhost:4000/graphql
+schema: https://scratches.glitch.me/
 documents: ./src/**/*.graphql
 generates:
   ./typings/gql-types.ts:
