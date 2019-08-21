@@ -10,7 +10,9 @@ interface CompProps {
 }
 
 export function JokeList(props: CompProps): JSX.Element {
-  const { loading, error, data = { jokes: [] }, refetch } = useQuery<JokesQuery>(query);
+  const { loading, error, data = { jokes: [] }, refetch } = useQuery<JokesQuery>(query, {
+    pollInterval: 10000,
+  });
   if (props.refetch) {
     refetch();
   }

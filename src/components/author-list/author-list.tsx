@@ -10,7 +10,9 @@ interface CompProps {
 }
 
 export function AuthorList(props: CompProps): JSX.Element {
-  const { loading, error, data = { authors: [] }, refetch } = useQuery<AuthorsQuery>(query);
+  const { loading, error, data = { authors: [] }, refetch } = useQuery<AuthorsQuery>(query, {
+    pollInterval: 10000,
+  });
   if (props.refetch) {
     refetch();
   }
