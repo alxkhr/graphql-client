@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "build": "webpack",
-    "serve": "webpack-dev-server"
+    "serve": "webpack-dev-server",
+    "gql-gen-types": "graphql-codegen"
   },
   "author": "Alexander Kehr",
   "license": "MIT",
@@ -15,6 +16,9 @@
   },
   "devDependencies": {
     "@apollo/react-hooks": "^3.0.1",
+    "@graphql-codegen/cli": "^1.6.1",
+    "@graphql-codegen/typescript": "^1.6.1",
+    "@graphql-codegen/typescript-operations": "^1.6.1",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.8.5",
     "apollo-boost": "^0.4.4",

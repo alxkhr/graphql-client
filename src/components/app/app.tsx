@@ -13,7 +13,7 @@ enum UIMode {
 
 interface CompState {
   uiMode: UIMode;
-  selectedAuthorId: string | null | undefined; // TODO codegen type (partly)
+  selectedAuthorId: string | null | undefined;
 }
 
 export class App extends React.Component<{}, CompState> {
@@ -21,7 +21,7 @@ export class App extends React.Component<{}, CompState> {
     uiMode: UIMode.Default,
     selectedAuthorId: undefined,
   };
-  private lastClickCoords = { x: 0, y: 0 }; // TODO codegen type
+  private lastClickCoords = { x: 0, y: 0 };
   private refetch = false;
   constructor(props: {}) {
     super(props);

@@ -1,26 +1,21 @@
 import { useMutation } from '@apollo/react-hooks';
 import * as React from 'react';
 
+import { AddJokeMutation } from '../../../typings/gql-types';
 import mutation from './joke-mask.graphql';
-
-interface Joke {
-  text: string;
-  author: string;
-  center: { x: number; y: number };
-} // TODO replace with gql codegen type
 
 interface CompProps {
   coords: {
     x: number;
     y: number;
   };
-  onScratch: (joke: Joke) => void;
+  onScratch: () => void;
 }
 
 export function JokeMask(props: CompProps): JSX.Element {
   const [text, setText] = React.useState('');
   const [author, setAuthor] = React.useState('');
-  const [addJoke] = useMutation(mutation);
+  const [addJoke] = useMutation<AddJokeMutation>(mutation);
   return (
     <form onClick={(e: React.MouseEvent) => e.stopPropagation()}>
       <div>
@@ -34,7 +29,7 @@ export function JokeMask(props: CompProps): JSX.Element {
       <button
         onClick={async (e) => {
           e.preventDefault();
-          await addJoke({
+          const { data = { joke: null } } = await addJoke({
             variables: {
               text,
               author: author || null,
@@ -42,7 +37,7 @@ export function JokeMask(props: CompProps): JSX.Element {
               centerY: props.coords.y,
             },
           });
-          props.onScratch({ author, text, center: props.coords });
+          props.onScratch();
         }}
       >
         Scratch!

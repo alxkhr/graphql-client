@@ -17,5 +17,8 @@
       }
     ]
   },
-  "rulesDirectory": []
+  "rulesDirectory": [],
+  "linterOptions": {
+    "exclude": ["typings/gql-types.ts"]
+  }
 }
