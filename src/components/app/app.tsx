@@ -14,12 +14,14 @@ enum UIMode {
 
 interface CompState {
   uiMode: UIMode;
+  openMenu: boolean;
   selectedAuthor?: Pick<Author, 'name' | 'id'>;
 }
 
 export class App extends React.Component<{}, CompState> {
   public state: CompState = {
     uiMode: UIMode.Default,
+    openMenu: false,
   };
   private lastClickCoords = { x: 0, y: 0 };
   private refetch = false;
@@ -33,10 +35,15 @@ export class App extends React.Component<{}, CompState> {
     return (
       <div>
         <div className={css.authors}>
-          <AuthorList
-            refetch={this.refetch}
-            onClickAuthor={(selectedAuthor) => this.setState({ selectedAuthor })}
-          />
+          <button onClick={() => this.setState((prevState) => ({ openMenu: !prevState.openMenu }))}>
+            🍔
+          </button>
+          {this.state.openMenu && (
+            <AuthorList
+              refetch={this.refetch}
+              onClickAuthor={(selectedAuthor) => this.setState({ selectedAuthor })}
+            />
+          )}
         </div>
         <div className={css.container}>
           {this.state.uiMode === UIMode.Editing && (
