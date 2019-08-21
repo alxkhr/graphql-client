@@ -1,0 +1,26 @@
+.container {
+  position: relative;
+  width: 999px;
+  height: 1332px;
+}
+
+.mask {
+  z-index: 3;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.list {
+  z-index: 2;
+  position: absolute;
+}
+
+.background {
+  z-index: 1;
+  position: absolute;
+}
