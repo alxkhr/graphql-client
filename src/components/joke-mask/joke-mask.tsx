@@ -9,12 +9,13 @@ interface CompProps {
     x: number;
     y: number;
   };
+  author?: string;
   onScratch: () => void;
 }
 
 export function JokeMask(props: CompProps): JSX.Element {
   const [text, setText] = React.useState('');
-  const [author, setAuthor] = React.useState('');
+  const [author, setAuthor] = React.useState(props.author || '');
   const [addJoke] = useMutation<AddJokeMutation>(mutation);
   return (
     <form onClick={(e: React.MouseEvent) => e.stopPropagation()}>

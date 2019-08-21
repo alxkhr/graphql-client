@@ -1,12 +1,12 @@
 import { useQuery } from '@apollo/react-hooks';
 import * as React from 'react';
 
-import { AuthorsQuery } from '../../../typings/gql-types';
+import { Author, AuthorsQuery } from '../../../typings/gql-types';
 import query from './author-list.graphql';
 
 interface CompProps {
   refetch: boolean;
-  onClickAuthor: (id: string | undefined) => void;
+  onClickAuthor: (author?: Pick<Author, 'name' | 'id'>) => void;
 }
 
 export function AuthorList(props: CompProps): JSX.Element {
@@ -23,7 +23,7 @@ export function AuthorList(props: CompProps): JSX.Element {
     <div>
       {data.authors
         .map((author, i) => (
-          <button key={i} onClick={() => props.onClickAuthor(author.id)}>
+          <button key={i} onClick={() => props.onClickAuthor(author)}>
             {author.name}
           </button>
         ))

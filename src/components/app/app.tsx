@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { Author } from '../../../typings/gql-types';
 import { AuthorDetails } from '../author-details/author-details';
 import { AuthorList } from '../author-list/author-list';
 import { JokeList } from '../joke-list/joke-list';
@@ -13,13 +14,12 @@ enum UIMode {
 
 interface CompState {
   uiMode: UIMode;
-  selectedAuthorId: string | null | undefined;
+  selectedAuthor?: Pick<Author, 'name' | 'id'>;
 }
 
 export class App extends React.Component<{}, CompState> {
-  public state = {
+  public state: CompState = {
     uiMode: UIMode.Default,
-    selectedAuthorId: undefined,
   };
   private lastClickCoords = { x: 0, y: 0 };
   private refetch = false;
@@ -35,20 +35,24 @@ export class App extends React.Component<{}, CompState> {
         <div className={css.authors}>
           <AuthorList
             refetch={this.refetch}
-            onClickAuthor={(id) => this.setState({ selectedAuthorId: id })}
+            onClickAuthor={(selectedAuthor) => this.setState({ selectedAuthor })}
           />
         </div>
         <div className={css.container}>
           {this.state.uiMode === UIMode.Editing && (
             <div className={css.mask} onClick={this.onClickMask}>
-              <JokeMask coords={this.lastClickCoords} onScratch={this.onScratch} />
+              <JokeMask
+                coords={this.lastClickCoords}
+                onScratch={this.onScratch}
+                author={this.state.selectedAuthor ? this.state.selectedAuthor.name : undefined}
+              />
             </div>
           )}
           <div className={css.jokes}>
-            {this.state.selectedAuthorId === undefined ? (
+            {this.state.selectedAuthor === undefined ? (
               <JokeList refetch={this.refetch} />
             ) : (
-              <AuthorDetails refetch={this.refetch} authorId={this.state.selectedAuthorId!} />
+              <AuthorDetails refetch={this.refetch} authorId={this.state.selectedAuthor!.id} />
             )}
           </div>
           <div className={css.background} onClick={this.onClickBackground}>
