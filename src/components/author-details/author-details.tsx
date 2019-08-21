@@ -1,22 +1,23 @@
 import { useQuery } from '@apollo/react-hooks';
 import * as React from 'react';
 
-import css from './joke-list.css';
-import query from './joke-list.graphql';
+import css from './author-details.css';
+import query from './author-details.graphql';
 
 interface CompProps {
+  authorId: string | null; // TODO maybe codegen type
   refetch: boolean;
 }
 
-export function JokeList(props: CompProps): JSX.Element {
-  const { loading, error, data, refetch } = useQuery(query); // TODO cast to codegen type
+export function AuthorDetails(props: CompProps): JSX.Element {
+  const { loading, error, data, refetch } = useQuery(query, { variables: { id: props.authorId } });
   if (props.refetch) {
     refetch();
   }
   if (loading || error) {
     return <></>;
   }
-  return data.jokes.map((
+  return data.author.jokes.map((
     joke: any, // TODO codegen type
     i: number,
   ) => (

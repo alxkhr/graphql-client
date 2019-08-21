@@ -11,6 +11,11 @@ const webAppConfig = {
   module: {
     rules: [
       {
+        test: /\.(graphql|gql)$/,
+        use: 'graphql-tag/loader',
+        exclude: /node_modules/,
+      },
+      {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
@@ -24,6 +29,7 @@ const webAppConfig = {
             options: { modules: true },
           },
         ],
+        exclude: /node_modules/,
       },
     ],
   },

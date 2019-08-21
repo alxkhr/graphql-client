@@ -12,12 +12,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  pointer-events: all;
   background: rgba(0, 0, 0, 0.5);
 }
 
-.list {
+.jokes {
   z-index: 2;
   position: absolute;
+}
+
+.authors {
+  width: 999px;
 }
 
 .background {

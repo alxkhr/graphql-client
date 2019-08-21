@@ -1,0 +1,12 @@
+{
+  jokes {
+    text
+    center {
+      x
+      y
+    }
+    author {
+      name
+    }
+  }
+}

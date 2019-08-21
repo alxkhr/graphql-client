@@ -1,0 +1,12 @@
+.joke {
+  display: flex;
+  height: 0;
+  width: 0;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.joke > div {
+  white-space: pre;
+}

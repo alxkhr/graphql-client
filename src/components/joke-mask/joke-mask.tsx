@@ -1,4 +1,7 @@
+import { useMutation } from '@apollo/react-hooks';
 import * as React from 'react';
+
+import mutation from './joke-mask.graphql';
 
 interface Joke {
   text: string;
@@ -14,49 +17,36 @@ interface CompProps {
   onScratch: (joke: Joke) => void;
 }
 
-interface CompState {
-  text: string;
-  author: string;
-}
-
-export class JokeMask extends React.Component<CompProps, CompState> {
-  public state = {
-    text: '',
-    author: '',
-  };
-  constructor(props: CompProps) {
-    super(props);
-    this.onScratch = this.onScratch.bind(this);
-  }
-  public render(): JSX.Element {
-    return (
-      <form>
-        <div>
-          <label htmlFor="text">Text</label>
-          <textarea
-            id="text"
-            value={this.state.text}
-            onChange={(e) => this.setState({ text: e.target.value })}
-          />
-        </div>
-        <div>
-          <label htmlFor="text">Author</label>
-          <input
-            id="author"
-            type="text"
-            value={this.state.author}
-            onChange={(e) => this.setState({ author: e.target.value })}
-          />
-        </div>
-        <button onClick={this.onScratch}>Scratch!</button>
-      </form>
-    );
-  }
-  private onScratch(event: React.MouseEvent): void {
-    event.preventDefault();
-    const { author, text } = this.state;
-    const { coords: center } = this.props;
-    // TODO request mutation
-    this.props.onScratch({ author, text, center });
-  }
+export function JokeMask(props: CompProps): JSX.Element {
+  const [text, setText] = React.useState('');
+  const [author, setAuthor] = React.useState('');
+  const [addJoke] = useMutation(mutation);
+  return (
+    <form onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+      <div>
+        <label htmlFor="text">Text</label>
+        <textarea autoFocus id="text" value={text} onChange={(e) => setText(e.target.value)} />
+      </div>
+      <div>
+        <label htmlFor="text">Author</label>
+        <input id="author" type="text" value={author} onChange={(e) => setAuthor(e.target.value)} />
+      </div>
+      <button
+        onClick={async (e) => {
+          e.preventDefault();
+          await addJoke({
+            variables: {
+              text,
+              author: author || null,
+              centerX: props.coords.x,
+              centerY: props.coords.y,
+            },
+          });
+          props.onScratch({ author, text, center: props.coords });
+        }}
+      >
+        Scratch!
+      </button>
+    </form>
+  );
 }

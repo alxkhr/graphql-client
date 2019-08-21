@@ -1,0 +1,11 @@
+query Author($id: String!) {
+  author(id: $id) {
+    jokes {
+      text
+      center {
+        x
+        y
+      }
+    }
+  }
+}

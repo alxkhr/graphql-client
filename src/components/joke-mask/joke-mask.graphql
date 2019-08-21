@@ -1,0 +1,12 @@
+mutation addJoke($text: String!, $author: String, $centerX: Int!, $centerY: Int!) {
+  addJoke(text: $text, author: $author, centerX: $centerX, centerY: $centerY) {
+    text
+    author {
+      name
+    }
+    center {
+      x
+      y
+    }
+  }
+}
