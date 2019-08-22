@@ -63,7 +63,7 @@ export class App extends React.Component<{}, CompState> {
             )}
           </div>
           <div className={css.background} onClick={this.onClickBackground}>
-            <img src="toilet-door-dummy.jpg" />
+            <img src="toilet-door.jpg" />
           </div>
         </div>
       </div>
